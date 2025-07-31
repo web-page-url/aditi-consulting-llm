@@ -2,6 +2,7 @@ services:
   - type: web
     name: anythingllm-app
     env: node
+    runtime: node
     buildCommand: |
       yarn install &&
       cd server && yarn install && npx prisma generate && cd .. &&
