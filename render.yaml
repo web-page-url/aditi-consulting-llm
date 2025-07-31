@@ -2,16 +2,9 @@ services:
   - type: web
     name: anythingllm-app
     env: node
-    runtime: node
-    buildCommand: |
-      yarn install &&
-      cd server && yarn install && npx prisma generate && cd .. &&
-      cd frontend && yarn install && yarn build && cd .. &&
-      cd collector && yarn install && cd .. &&
-      cp -r frontend/dist server/public
-    startCommand: |
-      yarn prisma:migrate &&
-      npx concurrently "yarn prod:server" "cd collector && yarn start" --kill-others
+    plan: free
+    buildCommand: yarn render:build
+    startCommand: yarn render:start
     envVars:
       - key: NODE_ENV
         value: production
@@ -23,7 +16,7 @@ services:
         generateValue: true
       - key: ENCRYPTION_KEY
         generateValue: true
-    
+
 databases:
   - name: anythingllm-db
     databaseName: anythingllm
