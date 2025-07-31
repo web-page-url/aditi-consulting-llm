@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: anythingllm-app
+    env: node
+    buildCommand: |
+      yarn install &&
+      cd server && yarn install && npx prisma generate && cd .. &&
+      cd frontend && yarn install && yarn build && cd .. &&
+      cd collector && yarn install && cd .. &&
+      cp -r frontend/dist server/public
+    startCommand: |
+      yarn prisma:migrate &&
+      npx concurrently "yarn prod:server" "cd collector && yarn start" --kill-others
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: anythingllm-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ENCRYPTION_KEY
+        generateValue: true
+    
+databases:
+  - name: anythingllm-db
+    databaseName: anythingllm
+    user: anythingllm
