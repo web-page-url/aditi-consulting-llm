@@ -26,6 +26,7 @@
     "prod:server": "cd server && yarn start",
     "prod:frontend": "cd frontend && yarn build",
     "render:build": "yarn install && cd server && yarn install && cd .. && cd frontend && yarn install && yarn build && cd .. && cd collector && yarn install && cd .. && node -e \"require('fs').cpSync('frontend/dist', 'server/public', {recursive: true})\"",
+    "start": "yarn prisma:generate && yarn prisma:migrate && npx concurrently \"yarn prod:server\" \"cd collector && yarn start\" --kill-others",
     "render:start": "yarn prisma:generate && yarn prisma:migrate && npx concurrently \"yarn prod:server\" \"cd collector && yarn start\" --kill-others",
     "generate:cloudformation": "node cloud-deployments/aws/cloudformation/generate.mjs",
     "generate::gcp_deployment": "node cloud-deployments/gcp/deployment/generate.mjs",
