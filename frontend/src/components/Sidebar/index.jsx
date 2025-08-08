@@ -37,12 +37,15 @@ export default function Sidebar() {
       >
         <div className="flex shrink-0 w-full justify-center my-[18px]">
           <div className="flex justify-between w-[250px] min-w-[250px]">
-            <Link to={paths.home()} aria-label="Home">
+            <Link to={paths.home()} aria-label="Home" className="flex items-center gap-x-2">
               <img
                 src={logo}
                 alt="Logo"
                 className={`rounded max-h-[24px] object-contain transition-opacity duration-500 ${showSidebar ? "opacity-100" : "opacity-0"}`}
               />
+              <span className={`text-theme-text-primary font-semibold text-sm transition-opacity duration-500 ${showSidebar ? "opacity-100" : "opacity-0"}`}>
+                Aditi Consulting
+              </span>
             </Link>
             {canToggleSidebar && (
               <ToggleSidebarButton
@@ -116,13 +119,16 @@ export function SidebarMobileHeader() {
         >
           <List className="h-6 w-6" />
         </button>
-        <div className="flex items-center justify-center flex-grow">
+        <div className="flex items-center justify-center flex-grow gap-x-2">
           <img
             src={logo}
             alt="Logo"
-            className="block mx-auto h-6 w-auto"
+            className="block h-6 w-auto"
             style={{ maxHeight: "40px", objectFit: "contain" }}
           />
+          <span className="text-theme-text-primary font-semibold text-sm">
+            Aditi Consulting
+          </span>
         </div>
         <div className="w-12"></div>
       </div>
